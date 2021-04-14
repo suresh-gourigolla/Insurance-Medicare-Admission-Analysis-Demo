@@ -1,0 +1,299 @@
+---------------------------Define schema with 142 columns for data ingestion----------------------------------------
+
+## Schema with various data attributes, type and indicators ex: StructField("MemberID_t",IntegerType(),False),
+
+from pyspark.sql.types import *
+from pyspark.sql import functions as F
+
+schema =StructType([
+	StructField("MemberID_t",IntegerType(),False),
+	StructField("YEAR_t",StringType(),False),
+	StructField("ClaimsTruncated",IntegerType(),False),
+	StructField("DaysInHospital",DoubleType(),False),
+	StructField("trainset",IntegerType(),False),
+	StructField("age_05",IntegerType(),False),
+	StructField("age_15",IntegerType(),False),
+	StructField("age_25",IntegerType(),False),
+	StructField("age_35",IntegerType(),False),
+	StructField("age_45",IntegerType(),False),
+	StructField("age_55",IntegerType(),False),
+	StructField("age_65",IntegerType(),False),
+	StructField("age_75",IntegerType(),False),
+	StructField("age_85",IntegerType(),False),
+	StructField("age_MISS",IntegerType(),False),
+	StructField("sexMALE",IntegerType(),False),
+	StructField("sexFEMALE",IntegerType(),False),
+	StructField("sexMISS",IntegerType(),False),
+	StructField("no_Claims",IntegerType(),False),
+	StructField("no_Providers",IntegerType(),False),
+	StructField("no_Vendors",IntegerType(),False),
+	StructField("no_PCPs",IntegerType(),False),
+	StructField("no_PlaceSvcs",IntegerType(),False),
+	StructField("no_Specialities",IntegerType(),False),
+	StructField("no_PrimaryConditionGroups",IntegerType(),False),
+	StructField("no_ProcedureGroups",IntegerType(),False),
+	StructField("PayDelay_max",IntegerType(),False),
+	StructField("PayDelay_min",IntegerType(),False),
+	StructField("PayDelay_ave",IntegerType(),False),
+	StructField("PayDelay_stdev",DoubleType(),False),
+	StructField("LOS_max",IntegerType(),False),
+	StructField("LOS_min",IntegerType(),False),
+	StructField("LOS_ave",IntegerType(),False),
+	StructField("LOS_stdev",DoubleType(),False),
+	StructField("LOS_TOT_UNKNOWN",IntegerType(),False),
+	StructField("LOS_TOT_SUPRESSED",IntegerType(),False),
+	StructField("LOS_TOT_KNOWN",IntegerType(),False),
+	StructField("dsfs_max",IntegerType(),False),
+	StructField("dsfs_min",IntegerType(),False),
+	StructField("dsfs_range",IntegerType(),False),
+	StructField("dsfs_ave",IntegerType(),False),
+	StructField("dsfs_stdev",DoubleType(),False),
+	StructField("CharlsonIndexI_max",IntegerType(),False),
+	StructField("CharlsonIndexI_min",IntegerType(),False),
+	StructField("CharlsonIndexI_ave",IntegerType(),False),
+	StructField("CharlsonIndexI_range",IntegerType(),False),
+	StructField("CharlsonIndexI_stdev",DoubleType(),False),
+	StructField("pcg1",IntegerType(),False),
+	StructField("pcg2",IntegerType(),False),
+	StructField("pcg3",IntegerType(),False),
+	StructField("pcg4",IntegerType(),False),
+	StructField("pcg5",IntegerType(),False),
+	StructField("pcg6",IntegerType(),False),
+	StructField("pcg7",IntegerType(),False),
+	StructField("pcg8",IntegerType(),False),
+	StructField("pcg9",IntegerType(),False),
+	StructField("pcg10",IntegerType(),False),
+	StructField("pcg11",IntegerType(),False),
+	StructField("pcg12",IntegerType(),False),
+	StructField("pcg13",IntegerType(),False),
+	StructField("pcg14",IntegerType(),False),
+	StructField("pcg15",IntegerType(),False),
+	StructField("pcg16",IntegerType(),False),
+	StructField("pcg17",IntegerType(),False),
+	StructField("pcg18",IntegerType(),False),
+	StructField("pcg19",IntegerType(),False),
+	StructField("pcg20",IntegerType(),False),
+	StructField("pcg21",IntegerType(),False),
+	StructField("pcg22",IntegerType(),False),
+	StructField("pcg23",IntegerType(),False),
+	StructField("pcg24",IntegerType(),False),
+	StructField("pcg25",IntegerType(),False),
+	StructField("pcg26",IntegerType(),False),
+	StructField("pcg27",IntegerType(),False),
+	StructField("pcg28",IntegerType(),False),
+	StructField("pcg29",IntegerType(),False),
+	StructField("pcg30",IntegerType(),False),
+	StructField("pcg31",IntegerType(),False),
+	StructField("pcg32",IntegerType(),False),
+	StructField("pcg33",IntegerType(),False),
+	StructField("pcg34",IntegerType(),False),
+	StructField("pcg35",IntegerType(),False),
+	StructField("pcg36",IntegerType(),False),
+	StructField("pcg37",IntegerType(),False),
+	StructField("pcg38",IntegerType(),False),
+	StructField("pcg39",IntegerType(),False),
+	StructField("pcg40",IntegerType(),False),
+	StructField("pcg41",IntegerType(),False),
+	StructField("pcg42",IntegerType(),False),
+	StructField("pcg43",IntegerType(),False),
+	StructField("pcg44",IntegerType(),False),
+	StructField("pcg45",IntegerType(),False),
+	StructField("pcg46",IntegerType(),False),
+	StructField("sp1",IntegerType(),False),
+	StructField("sp2",IntegerType(),False),
+	StructField("sp3",IntegerType(),False),
+	StructField("sp4",IntegerType(),False),
+	StructField("sp5",IntegerType(),False),
+	StructField("sp6",IntegerType(),False),
+	StructField("sp7",IntegerType(),False),
+	StructField("sp8",IntegerType(),False),
+	StructField("sp9",IntegerType(),False),
+	StructField("sp10",IntegerType(),False),
+	StructField("sp11",IntegerType(),False),
+	StructField("sp12",IntegerType(),False),
+	StructField("sp13",IntegerType(),False),
+	StructField("pg1",IntegerType(),False),
+	StructField("pg2",IntegerType(),False),
+	StructField("pg3",IntegerType(),False),
+	StructField("pg4",IntegerType(),False),
+	StructField("pg5",IntegerType(),False),
+	StructField("pg6",IntegerType(),False),
+	StructField("pg7",IntegerType(),False),
+	StructField("pg8",IntegerType(),False),
+	StructField("pg9",IntegerType(),False),
+	StructField("pg10",IntegerType(),False),
+	StructField("pg11",IntegerType(),False),
+	StructField("pg12",IntegerType(),False),
+	StructField("pg13",IntegerType(),False),
+	StructField("pg14",IntegerType(),False),
+	StructField("pg15",IntegerType(),False),
+	StructField("pg16",IntegerType(),False),
+	StructField("pg17",IntegerType(),False),
+	StructField("pg18",IntegerType(),False),
+	StructField("ps1",IntegerType(),False),
+	StructField("ps2",IntegerType(),False),
+	StructField("ps3",IntegerType(),False),
+	StructField("ps4",IntegerType(),False),
+	StructField("ps5",IntegerType(),False),
+	StructField("ps6",IntegerType(),False),
+	StructField("ps7",IntegerType(),False),
+	StructField("ps8",IntegerType(),False),
+	StructField("ps9",IntegerType(),False),
+	StructField("drugCount_max",IntegerType(),False),
+	StructField("drugCount_min",IntegerType(),False),
+	StructField("drugCount_ave",DoubleType(),False),
+	StructField("drugcount_months",IntegerType(),False),
+	StructField("labCount_max",IntegerType(),False),
+	StructField("labCount_min",IntegerType(),False),
+	StructField("labCount_ave",DoubleType(),False),
+	StructField("labcount_months",IntegerType(),False),
+	StructField("labNull",IntegerType(),False),
+	StructField("drugNull",IntegerType(),False)
+])
+
+df1 = (spark.read.option("delimiter", ",")
+  .option("inferSchema", "true")  # Use tab delimiter (default is comma-separator)
+   .option("header", "true")
+  .schema(schema)
+  .csv("dbfs:/mnt/wesley/dataset/medicare/readmission/modeling_set1.csv"))
+
+df = df1.select("MemberID_t","YEAR_t","ClaimsTruncated","DaysInHospital","trainset","age_05","age_15","age_25","age_35","age_45","age_55","age_65","age_75","age_85","age_MISS","sexMALE","sexFEMALE","sexMISS","no_Claims","no_Providers","no_Vendors","no_PCPs","no_PlaceSvcs","no_Specialities","no_PrimaryConditionGroups","no_ProcedureGroups","PayDelay_max","PayDelay_min","PayDelay_ave","PayDelay_stdev","LOS_max","LOS_min","LOS_ave","LOS_stdev","LOS_TOT_UNKNOWN","LOS_TOT_SUPRESSED","LOS_TOT_KNOWN","dsfs_max","dsfs_min","dsfs_range","dsfs_ave","dsfs_stdev","CharlsonIndexI_max","CharlsonIndexI_min","CharlsonIndexI_ave","CharlsonIndexI_range","CharlsonIndexI_stdev","pcg1","pcg2","pcg3","pcg4","pcg5","pcg6","pcg7","pcg8","pcg9","pcg10","pcg11","pcg12","pcg13","pcg14","pcg15","pcg16","pcg17","pcg18","pcg19","pcg20","pcg21","pcg22","pcg23","pcg24","pcg25","pcg26","pcg27","pcg28","pcg29","pcg30","pcg31","pcg32","pcg33","pcg34","pcg35","pcg36","pcg37","pcg38","pcg39","pcg40","pcg41","pcg42","pcg43","pcg44","pcg45","pcg46","sp1","sp2","sp3","sp4","sp5","sp6","sp7","sp8","sp9","sp10","sp11","sp12","sp13","pg1","pg2","pg3","pg4","pg5","pg6","pg7","pg8","pg9","pg10","pg11","pg12","pg13","pg14","pg15","pg16","pg17","pg18","ps1","ps2","ps3","ps4","ps5","ps6","ps7","ps8","ps9","drugCount_max","drugCount_min","drugCount_ave","drugcount_months","labCount_max","labCount_min","labCount_ave","labcount_months","labNull","drugNull", F.when(df1.DaysInHospital <= 0, 0.0).when(df1.DaysInHospital >= 1, 1.0).alias('Readmitlabel'))
+
+--------------------------------------------Verify Data in a table format---------------------------------------
+
+display(df)
+
+--------------------------------------------Enrich the data to get additional insigts to patient dataset-------------------------------
+
+We count the number of data points and separate the churned from the unchurned.
+Import SQL API Functions
+
+# Because we will need it later...
+from pyspark.sql.functions import *
+from pyspark.sql.types import *
+
+-------------------------------------------Create table---------------------------------------------
+
+%sql 
+
+    Drop table if exists temp_idsdata;
+    
+    CREATE TEMPORARY TABLE temp_idsdata
+    USING parquet
+    OPTIONS (
+      path "/mnt/wesley/parquet/medicare/readmission/admissiondata"
+    )
+	
+------------------------------------------Age wise analysis of patient data-----------------------------
+
+
+select DaysInHospital,age_05,age_15,age_25,age_35,age_45,age_55,age_65,age_75,age_85,age_MISS from temp_idsdata where trainset =1
+
+------------------------------------------ Explore Patient Data-------------------------------------
+
+Breakdown of patient days in hospital using databricks graph 
+
+select Readmitlabel, count(*) as count from temp_idsdata where trainset =1 group by Readmitlabel order by Readmitlabel asc
+
+----------------------------------------Breakdown of patient days in hospital using matplotlib----------------------
+
+import matplotlib.pyplot as plt
+importance = sqlContext.sql("select Readmitlabel, count(*) as count from temp_idsdata where trainset =1 group by Readmitlabel order by Readmitlabel asc")
+importanceDF = importance.toPandas()
+ax = importanceDF.plot(x="Readmitlabel", y="count",lw=3,colormap='Reds_r',title='Importance in Descending Order', fontsize=9)
+ax.set_xlabel("Readmitlabel")
+ax.set_ylabel("count")
+plt.xticks(rotation=12)
+plt.grid(True)
+plt.show()
+display()
+
+------------------------------------------Show the distribution of the account length.------------------------------------
+
+display(df.filter(col('trainset') == 1).select("Readmitlabel"))
+
+--------------------------------------------Model Creation -----------------------------------------------------------------
+
+from  pyspark.ml.feature import StringIndexer
+
+indexer1 = (StringIndexer()
+                   .setInputCol("YEAR_t")
+                   .setOutputCol("YearIndex")
+                   .fit(df))
+
+indexed1 = indexer1.transform(df)
+finaldf = indexed1.filter(col('trainset') == 1)
+
+from pyspark.ml.feature import VectorAssembler
+vecAssembler = VectorAssembler()
+vecAssembler.setInputCols(["age_05","age_15","age_25","age_35","age_45","age_55","age_65","age_75","age_85","age_MISS","sexMALE","sexFEMALE","sexMISS","no_Claims","no_Providers","no_Vendors","no_PCPs","no_PlaceSvcs","no_Specialities","no_PrimaryConditionGroups","no_ProcedureGroups","PayDelay_max","PayDelay_min","PayDelay_ave","PayDelay_stdev","LOS_max","LOS_min","LOS_ave","LOS_stdev","LOS_TOT_UNKNOWN","LOS_TOT_SUPRESSED","LOS_TOT_KNOWN","dsfs_max","dsfs_min","dsfs_range","dsfs_ave","dsfs_stdev","CharlsonIndexI_max","CharlsonIndexI_min","CharlsonIndexI_ave","CharlsonIndexI_range","CharlsonIndexI_stdev","pcg1","pcg2","pcg3","pcg4","pcg5","pcg6","pcg7","pcg8","pcg9","pcg10","pcg11","pcg12","pcg13","pcg14","pcg15","pcg16","pcg17","pcg18","pcg19","pcg20","pcg21","pcg22","pcg23","pcg24","pcg25","pcg26","pcg27","pcg28","pcg29","pcg30","pcg31","pcg32","pcg33","pcg34","pcg35","pcg36","pcg37","pcg38","pcg39","pcg40","pcg41","pcg42","pcg43","pcg44","pcg45","pcg46","sp1","sp2","sp3","sp4","sp5","sp6","sp7","sp8","sp9","sp10","sp11","sp12","sp13","pg1","pg2","pg3","pg4","pg5","pg6","pg7","pg8","pg9","pg10","pg11","pg12","pg13","pg14","pg15","pg16","pg17","pg18","ps1","ps2","ps3","ps4","ps5","ps6","ps7","ps8","ps9","drugCount_max","drugCount_min","drugCount_ave","drugcount_months","labCount_max","labCount_min","labCount_ave","labcount_months"])
+vecAssembler.setOutputCol("features")
+print vecAssembler.explainParams()
+
+from pyspark.ml.classification import DecisionTreeClassifier
+
+aft = DecisionTreeClassifier()
+aft.setLabelCol("Readmitlabel")
+aft.setMaxDepth(30)
+
+print aft.explainParams()
+
+-----------------------------------------------------------------
+
+from pyspark.ml import Pipeline
+
+# We will use the new spark.ml pipeline API. If you have worked with scikit-learn this will be very familiar.
+lrPipeline = Pipeline()
+
+# Now we'll tell the pipeline to first create the feature vector, and then do the linear regression
+lrPipeline.setStages([vecAssembler, aft])
+
+# Pipelines are themselves Estimators -- so to use them we call fit:
+lrPipelineModel = lrPipeline.fit(finaldf)
+
+--------------------------Visualizing the for data prediction results---------------------------------------
+
+display(predAnalysis)
+
+------------------------------Confusion Matrix for the patient model-------------------------------------------
+
+from pyspark.mllib.evaluation import MulticlassMetrics
+metrics = MulticlassMetrics(confusionMatrix.rdd)
+cm = metrics.confusionMatrix().toArray()
+
+--------------------------------Performance Metrics of the model--------------------------------------------------
+
+print metrics.falsePositiveRate(0.0)
+print metrics.accuracy
+
+--------------------------------confusion matrix in matplotlib-------------------------------------------------------
+
+
+%python
+import matplotlib.pyplot as plt
+import numpy as np
+import itertools
+plt.figure(figsize=(2,2))
+classes=list([0,1])
+plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+plt.title('Confusion matrix')
+plt.colorbar()
+tick_marks = np.arange(len(classes))
+plt.xticks(tick_marks, classes, rotation=0)
+plt.yticks(tick_marks, classes)
+
+
+thresh = cm.max() / 2.
+for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+    plt.text(j, i, format(cm[i, j]),
+             horizontalalignment="center",
+             verticalalignment="center",
+             color="white" if cm[i, j] > thresh else "black")
+plt.ylabel('True label')
+plt.xlabel('Predicted label')
+plt.show()
+display()
+
+----------------------------------
+
+	
